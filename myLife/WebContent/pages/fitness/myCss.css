@@ -1,0 +1,21 @@
+#mainTable{
+			width:60%;
+			margin:10px;
+			border:2px solid #303;
+		}
+tr,td,th,thead{
+	border:2px solid gray;
+}
+th,td{
+	width:12%;
+	text-align:center;
+}
+#button{
+	position:float;
+	width:12%;
+	margin-left:62%;
+	margin-top:-20%;
+}
+button{
+	margin:3%;
+}

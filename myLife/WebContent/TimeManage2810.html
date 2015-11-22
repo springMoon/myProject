@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Time Manage</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>	
+	<style type="text/css">
+		#mainTable{
+			width:60%;
+			margin:10px;
+			border:2px solid #303;
+		}
+		tr,td,th,thead{
+			border:2px solid gray;
+		}
+		th,td{
+			width:12%;
+			text-align:center;
+		}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		//get page elements
+		//tag tr
+		var trs = document.getElementsByTagName("tr");
+		//tag th
+		var ths;
+		//tag td
+		var tds = [];
+		
+		
+		
+		//variable
+		//var num = Math.round(Math.random()*254);
+		//alert(num);
+		for(var i =0; i < trs.length; i++){
+			//获取th
+			if(i == 0){
+				ths = trs[i].getElementsByTagName("th");
+			}else{
+				var tdss = trs[i].getElementsByTagName("td");
+				for(var j =0; j < tdss.length; j++){
+					//tds.push(tdss[0]);
+					//alert(tdss.length);
+					if(j%8 != 0){
+						//alert(tds[i]);
+						//tdss[j].style.background = "green";
+						//alert(tdss[j]);
+						tdss[j].onclick = function(){
+							//alert(tdss[j]);
+							//alert(getColor());
+							this.style.background = getColor();
+						}
+					}
+				}
+			}
+		}
+		/* alert(ths.length);  //8
+		alert(tds.length);  //56 */
+		
+		//add event
+		/* for(var i=0; i < tds.length; i++){
+			
+			if(i%8 != 0){
+				//alert(tds[i]);
+				tds[i].onClick = function(){
+					alert(tds[i]);
+					tds.style.backgroundColor = "red";
+				}
+			}
+		} */
+	}
+	
+	function getColor(){
+		var a = Math.round(Math.random()*7)
+		var color;
+		switch(a){
+		case 1:
+			color = "red";
+			break;
+		case 2:
+			color = "orange";
+			break;
+		case 3:
+			color = "yellow";
+			break;
+		case 4:
+			color = "cyan";
+			break;
+		case 5:
+			color = "green";
+			break;
+		case 6:
+			color = "blue";
+			break;
+		default:
+			color = "purple";
+		}
+		return color;
+	}
+	
+	/* function readFile(filename){ 
+		 var fso = new ActiveXObject("Scripting.FileSystemObject"); 
+		 var f = fso.OpenTextFile(filename,1); 
+		 var s = ""; 
+		 while (!f.AtEndOfStream) 
+		 s += f.ReadLine()+"\n"; 
+		 f.Close(); 
+		 return s; 
+		}
+	alert(readFile("myTime.jsp")); */
+	</script>
+</head>
+<body>
+	<div id="top-nav">
+	</div>
+  <div id="body">
+    <div id="nav-top-bar">
+    </div>
+    <div id="sidebar">
+    </div>
+    <div id="main">
+      <div id="sub-nav-container">
+        <table class="table table-hover " id="mainTable">
+        	<caption>本周健身记录</caption>
+		   <thead>
+		      <tr id="header">
+		         <th>头（单位：组）</th>
+		         <th>俯卧撑</th>
+		         <th>哑铃（举）</th>
+		         <th>哑铃（提）</th>
+		         <th>拉力器</th>
+		         <th>臂力器</th>
+		         <th>仰卧起坐</th>
+		         <th>热身动作</th>
+		      </tr>
+		   </thead>
+        	<tr id="tr2">
+        		<td>周一</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr3">
+        		<td>周二</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr4">
+        		<td>周三</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr5">
+        		<td>周四</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr6">
+        		<td>周五</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr7">
+        		<td>周六</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr8">
+        		<td>周天</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	
+        </table>
+      </div>
+    </div>
+  </div>
+  <div id="overlay"></div>
+</body>
+</html>

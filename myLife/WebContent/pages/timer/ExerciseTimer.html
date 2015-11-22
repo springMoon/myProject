@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Time Manage</title>
+	<script type="text/javascript">
+	
+		window.onload = function(){
+			//get page element
+			var time = document.getElementById("num");
+			var sub = document.getElementById("submit");
+			var audio = document.getElementById("play");
+			
+			//variable
+			var num = time.value;
+			var flag = true;
+			var count = 1;
+			//event
+			sub.onclick = function(){
+
+					flag = true;
+					audio.pause();
+					sub.value = "play";
+
+			}
+			
+			//function
+			//sub.onclick = function(){
+				//alert(num);
+				var set = setInterval(function(){
+					audio.play();
+					sub.value = "pause";
+					
+					//计数，弹出提醒
+					switch(count){
+					case 7:
+						alert("热身动作");
+						//跳转到 健身动作 页面
+						self.location='http://v.ku6.com/show/5rX-CpInDTQ7x3BJ6iDssA...html';
+						break;
+					case 1:
+						alert("俯卧撑");
+						break;
+					case 2:
+						alert("哑铃（举）");
+						break;
+					case 3:
+						alert("臂力器");
+						break;
+					case 4:
+						alert("拉力器");
+						break;
+					case 5:
+						alert("哑铃（提）");
+						break;
+					case 6:
+						alert("仰卧起坐");
+						break;
+					default:
+						clearInterval(set);
+							break;
+					}
+					count++;
+				}
+				,num*60*1000);
+				//alert(num);
+			//}
+			
+		}
+	</script>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<div id="input">
+				time：<input type="text" name="num" id="num" value="5"><p>
+				<input type="submit" value="play" id="submit"><p>
+			</div>
+		</tr>
+		<p>
+		<tr>
+			<div id="player">
+				<audio controls="controls" id="play" loop="loop">
+					  <source src="Sunshine Girl.mp3" type="audio/mpeg">
+				</audio>
+			</div>
+		</tr>
+		<p>
+		<tr>
+			<a id="a" href="http://v.ku6.com/show/5rX-CpInDTQ7x3BJ6iDssA...html">
+				热身动作
+			</a>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Time Manage</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>	
+	<style type="text/css">
+		#mainTable{
+			width:60%;
+			margin:10px;
+			border:2px solid #303;
+		}
+		tr,td,th,thead{
+			border:2px solid gray;
+		}
+		th,td{
+			width:12%;
+			text-align:center;
+		}
+		#submit{
+			position:float;
+			margin-left: 62%;
+			margin-top: -50%;
+		}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		//get page elements
+		//tag tr
+		var trs = document.getElementsByTagName("tr");
+		var submit = document.getElementById("submit");
+		var fitnessForm = document.getElementById("fitnessForm");
+		var fitnessInput = document.getElementById("fitnessInput");
+		//后台传过来的数据，放在fitnessOutput 中
+		var fitnessOutput = document.getElementById("fitnessOutput").value;
+		//alert(fitnessOutput);
+		//alert(analysisArray(fitnessOutput));
+		//tag th
+		var ths;
+		//tag td
+		var tds = [];
+		
+		//variable
+		var array = new Array(49);
+		initArray(array);
+		
+		
+		//event
+		for(var i =0; i < trs.length; i++){
+			//获取th
+			if(i == 0){
+				ths = trs[i].getElementsByTagName("th");
+			}else{
+				var tdss = trs[i].getElementsByTagName("td");
+				for(var j =0; j < tdss.length; j++){
+					//if(j%8 != 0){
+						tdss[j].num = (i-1)*7+j;
+						tdss[j].onclick = function(){
+							//this.num = i*7+j%8+"";
+							//get random number 1 2 3 4 5 6 7
+							var a = getRandom();
+							this.style.background = getColor(a);
+							array[this.num] = a;
+						}
+					//}
+				}
+			}
+		}
+		//submit form
+		submit.onclick = function(){
+			//showArray();
+			//AjaxSubmitArray1();
+			fitnessInput.value = formatArray();
+			fitnessForm.submit();
+		}
+		
+	
+	//funciton 
+	//format array to String splip by ","
+	function formatArray(){
+		var str = "";
+		for(var i = 0; i< array.length; i ++){
+			if (i == array.length -1){
+				str += array[i];
+			}else{
+				str += array[i]+","
+			}
+		}
+		//alert(str);
+		return str;
+	}
+	//function analysis String to array
+	function analysisArray(fitnessOutput){
+		/*var lastValue = new Array();
+		 for(var i = 0; i < fitnessOutput.length; i++){
+			
+		} */
+		return fitnessOutput.split(",");
+	}
+		function AjaxSubmitArray1(){
+			alert("send ajax request");
+			xmlHttp.open("POST", "fitness.action", true);
+		    var text = "uid=1&gid=2";
+		    xmlHttp.send(text);
+		}
+	function AjaxSubmitArray(){
+		alert("ajax");
+		$.ajax({
+			  type : "POST",
+			  url : "fitnessAction.Action",
+			  dataType:"json",
+			  data:
+			  {
+			      modName:title
+			  },
+			  success : function(data){
+			   //data = eval('('+data+')');
+			      var result = data.rows[0];
+			      alert("ajax return ");
+			      $('#main-tab').tabs('close',title);
+			      openPage(title,'',baseUrl+result.moUrl,null);
+			   
+			  }
+			  });
+	}
+	//init array to 0
+	function initArray(arr){
+		for(var i = 0; i < arr.length; i++){
+			arr[i] = 0;
+		}
+	}
+	//function fun
+	function showArray(){
+		alert(array);
+	}
+	//get random number
+	function getRandom(){
+		return Math.round(Math.random()*7);
+	}
+	//get color
+	function getColor(a){
+		
+		var color;
+		switch(a){
+		case 1:
+			color = "red";
+			break;
+		case 2:
+			color = "orange";
+			break;
+		case 3:
+			color = "yellow";
+			break;
+		case 4:
+			color = "cyan";
+			break;
+		case 5:
+			color = "green";
+			break;
+		case 6:
+			color = "blue";
+			break;
+		default:
+			color = "purple";
+		}
+		return color;
+	}
+	
+}
+	/* function readFile(filename){ 
+		 var fso = new ActiveXObject("Scripting.FileSystemObject"); 
+		 var f = fso.OpenTextFile(filename,1); 
+		 var s = ""; 
+		 while (!f.AtEndOfStream) 
+		 s += f.ReadLine()+"\n"; 
+		 f.Close(); 
+		 return s; 
+		}
+	alert(readFile("myTime.jsp")); */
+	</script>
+</head>
+<body>
+	<div id="top-nav">
+	</div>
+  <div id="body">
+    <div id="nav-top-bar">
+    </div>
+    <div id="sidebar">
+    </div>
+    <div id="main">
+      <div id="sub-nav-container">
+      	<form action="fitness" type="post" id="fitnessForm">
+      		<input type="text" id="fitnessOutput" name = "fitnessOutput" value="${ fitness }">
+      		<input type="hidden" id="fitnessInput" name = "fitness">
+      	</form>
+        <table class="table table-hover " id="mainTable">
+        	<caption>本周健身记录</caption>
+		   <thead>
+		      <tr id="header">
+		         <th>头（单位：组）</th>
+		         <th>俯卧撑</th>
+		         <th>哑铃（举）</th>
+		         <th>哑铃（提）</th>
+		         <th>拉力器</th>
+		         <th>臂力器</th>
+		         <th>仰卧起坐</th>
+		         <th>热身动作</th>
+		      </tr>
+		   </thead>
+        	<tr id="tr2">
+        		<th>周一</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr3">
+        		<th>周二</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr4">
+        		<th>周三</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr5">
+        		<th>周四</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr6">
+        		<th>周五</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr7">
+        		<th>周六</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	<tr id="tr8">
+        		<th>周天</th>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        	</tr>
+        	
+        </table>
+        <!-- <button onclick="fun()">00000</button> -->
+      </div>
+      <div id="buttom">
+      	<button type="button" class="btn btn-primary btn-lg" id="submit">
+      		Submit
+   		</button>
+      </div>
+    </div>
+  </div>
+  <div id="overlay"></div>
+</body>
+</html>
